@@ -16,7 +16,7 @@ public class Main {
 
         System.out.println();
 
-        Customer customer1 = new Customer("Aidar", "1111");
+        Customer customer1 = new Customer("Aidos", "1111");
         Customer customer2 = new Customer("Assel", "2222");
 
         customer1.show();
