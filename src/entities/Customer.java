@@ -1,28 +1,61 @@
 package entities;
 
-public class Customer {
+class Customer extends BankEntity {
     private String name;
-    private String id;
+    private java.util.List<Account> accounts;
 
-    public Customer(String name,String id) {
+    public Customer(String name, String id) {
+        super(id);
         this.name = name;
-        this.id = id;
+        this.accounts = new java.util.ArrayList<>();
     }
 
     public String getName() {
         return name;
     }
 
-    public String getId() {
-        return id;
+    public String getCustomerId() {
+        return getId();
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public java.util.List<Account> getAccounts() {
+        return new java.util.ArrayList<>(accounts);
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void addAccount(Account acc) {
+        if (!accounts.contains(acc)) {
+            accounts.add(acc);
+            acc.setOwner(this);
+        }
     }
-    public void show(){System.out.println("entities.Customer:" + name + ", ID:" + id);}
+
+    public double getTotalBalance() {
+        return accounts.stream()
+                .mapToDouble(Account::getBalance)
+                .sum();
+    }
+
+    @Override
+    public void show() {
+        System.out.println(this);
+    }
+
+    @Override
+    public String toString() {
+        return name + " (ID: " + getId() + "), счетов: " +
+                accounts.size() + ", всего денег: " + getTotalBalance();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Customer)) return false;
+        Customer c = (Customer) obj;
+        return getId().equals(c.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(getId());
+    }
 }

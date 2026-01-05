@@ -1,45 +1,38 @@
 package entities;
 
-public class Main {
-    static void main(String[] args) {
-        Account acc1 = new Account("bogatiy", 50000);
-        Account acc2 = new Account("bedniy", 30000);
+class Main {
+    public static void main(String[] args) {
+        Bank kaspi = new Bank("Каспи");
+        Bank halyk = new Bank("Халык");
 
-        acc1.show();
-        acc2.show();
+        Customer amir = new Customer("Амир", "001");
+        Customer dana = new Customer("Дана", "002");
+        Customer beka = new Customer("Бека", "003");
 
-        if (acc1.getBalance() > acc2.getBalance()) {
-            System.out.println(acc1.getAccountNumber() + " has more money");
-        } else {
-            System.out.println(acc2.getAccountNumber() + " has more money");
-        }
+        Account acc1 = new Account("KZ123", 100000, amir);
+        Account acc2 = new Account("KZ456", 5000, dana);
+        Account acc3 = new Account("KZ789", 250000, amir);
+        Account acc4 = new Account("KZ999", 500, beka);
 
-        System.out.println();
+        amir.addAccount(acc1);
+        amir.addAccount(acc3);
+        dana.addAccount(acc2);
+        beka.addAccount(acc4);
 
-        Customer customer1 = new Customer("Aidos", "1111");
-        Customer customer2 = new Customer("Assel", "2222");
+        kaspi.addCustomer(amir);
+        kaspi.addCustomer(dana);
+        kaspi.addAccount(acc1);
+        kaspi.addAccount(acc2);
 
-        customer1.show();
-        customer2.show();
+        halyk.addCustomer(beka);
+        halyk.addAccount(acc3);
+        halyk.addAccount(acc4);
 
-        if (customer1.getId().equals(customer2.getId())) {
-            System.out.println("Same customer");
-        } else {
-            System.out.println("Different customers");
-        }
+        java.util.List<BankEntity> list =
+                java.util.Arrays.asList(acc1, amir, kaspi);
 
-        System.out.println();
-
-        Bank bank1 = new Bank("Halyk", 1000);
-        Bank bank2 = new Bank("Kaspi", 1500);
-
-        bank1.show();
-        bank2.show();
-
-        if (bank1.getCustomers() > bank2.getCustomers()) {
-            System.out.println(bank1.getName() + " is bigger");
-        } else {
-            System.out.println(bank2.getName() + " is bigger");
+        for (BankEntity e : list) {
+            e.show();
         }
     }
 }
