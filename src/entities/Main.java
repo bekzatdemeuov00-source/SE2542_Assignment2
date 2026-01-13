@@ -1,7 +1,10 @@
 package entities;
 
-class Main {
+import java.util.*;
+
+public class Main {
     public static void main(String[] args) {
+
         Bank kaspi = new Bank("Каспи");
         Bank halyk = new Bank("Халык");
 
@@ -28,11 +31,39 @@ class Main {
         halyk.addAccount(acc3);
         halyk.addAccount(acc4);
 
-        java.util.List<BankEntity> list =
-                java.util.Arrays.asList(acc1, amir, kaspi);
+        List<BankEntity> stuff = new ArrayList<>();
+        stuff.add(acc1);
+        stuff.add(amir);
+        stuff.add(kaspi);
 
-        for (BankEntity e : list) {
-            e.show();
+        for (BankEntity b : stuff) {
+            b.show();
         }
+
+        System.out.println(acc1);
+        System.out.println(dana);
+        System.out.println(halyk);
+
+        Customer amir2 = new Customer("Амир", "001");
+        System.out.println(amir.equals(amir2));
+        System.out.println(amir.hashCode() == amir2.hashCode());
+
+        for (Account a : kaspi.getRichAccounts(50000)) {
+            System.out.println(a);
+        }
+
+        System.out.println(kaspi.findAccount("KZ123"));
+        System.out.println(kaspi.findCustomer("002"));
+
+        for (Account a : kaspi.sortByBalance()) {
+            System.out.println(a);
+        }
+
+        acc4.deposit(10000);
+        acc4.withdraw(5000);
+        System.out.println(acc4);
+
+        kaspi.show();
+        halyk.show();
     }
 }
